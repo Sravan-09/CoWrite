@@ -1,0 +1,155 @@
+/* Global Box Sizing: Ensures padding and borders don't affect element width */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Base Body Styles: Soft background color and modern system font stack */
+body {
+  background-color: #F3F3F3;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+/* A4 Page Simulation: 
+   Sets the editor to standard A4 dimensions (210mm x 297mm) 
+   with a shadow to create a "paper" effect on the UI.
+*/
+.container .ql-editor {
+  width: 210mm;
+  min-height: 297mm;
+  padding: 1in;
+  margin: 1rem;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+
+/* Editor Container: Centers the "page" within the viewport */
+.container .ql-container.ql-snow {
+  border: none;
+  display: flex;
+  justify-content: center;
+}
+
+/* Sticky Toolbar: 
+   Keeps the formatting tools visible at the top while scrolling.
+   Features a custom modern design with rounded corners and a blue accent.
+*/
+.container .ql-toolbar.ql-snow {
+  display: flex;
+  justify-content: center;
+  position: sticky;
+  top: 10px;
+  z-index: 1;
+  background-color: white;
+  border: 1px solid #E0E0E0;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin: 0 auto;
+  width: fit-content;
+  padding: 8px;
+  flex-wrap: wrap;
+  border-top: 4px solid #1976d2; /* Blue accent bar */
+}
+
+/* Toolbar Format Groups: Visual separators between tool sets (e.g., Bold/Italic vs Lists) */
+.ql-toolbar.ql-snow .ql-formats {
+  margin-right: 12px;
+  padding-right: 12px;
+  border-right: 1px solid #9e9e9e;
+  display: flex;
+  align-items: center;
+}
+
+.ql-toolbar.ql-snow .ql-formats:last-child {
+  border-right: none;
+}
+
+/* Toolbar Buttons: Custom hover and active states for better UX */
+.ql-toolbar.ql-snow button {
+  border-radius: 4px;
+  margin: 0 2px !important;
+  transition: background-color 0.2s;
+}
+
+.ql-toolbar.ql-snow button:hover {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.ql-toolbar.ql-snow button.ql-active {
+  background-color: #bbdefb;
+  color: #1565c0;
+}
+
+/* Print Styles: 
+   Removes the background, shadows, and toolbar when the user tries to print 
+   the document, ensuring only the text content is sent to the printer.
+*/
+@page {
+  margin: 1in;
+}
+
+@media print {
+  body {
+    background: none;
+  }
+
+  .container .ql-editor {
+    width: auto;
+    height: auto;
+    min-height: 0;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+    align-self: flex-start;
+  }
+
+  .container .ql-container.ql-snow {
+    display: block;
+  }
+
+  .container .ql-toolbar.ql-snow {
+    display: none;
+  }
+}
+
+/* Font Size Picker: Configures the dropdown to show the numeric value */
+.ql-snow .ql-picker.ql-size {
+  width: 60px;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item::before {
+  content: attr(data-value) !important;
+}
+
+/* Custom Scrollbar: Modern, thin scrollbar for a clean interface */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Selection Highlight: Matches the app's primary theme color */
+::selection {
+  background-color: #bbdefb;
+  color: #000;
+}
+
+/* Placeholder Styling: Italicized gray text for empty editor states */
+.ql-editor.ql-blank::before {
+  color: #9e9e9e;
+  font-style: italic;
+}
