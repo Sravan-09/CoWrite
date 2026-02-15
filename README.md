@@ -1,126 +1,126 @@
-<img src="client/public/logo512.png" width="40" height="40" valign="middle"> CoWrite
+# <img src="client/public/logo512.png" width="50" height="50" valign="middle"> CoWrite
 
-CoWrite is a real-time, collaborative rich-text editor inspired by Google Docs. It allows multiple users to edit the same document simultaneously with instant synchronization, powered by WebSockets and persistent storage.
+CoWrite is a real-time collaborative rich-text editor built for seamless multi-user document editing. Powered by WebSockets for instant synchronization and backed by persistent storage, it ensures low-latency collaboration, consistent state management, and reliable data durability.
 
-🚀 Features
+## 🚀 Features
 
-Real-time Collaboration: Multi-user editing with instant updates across all clients using Socket.io.
+### Real-time Collaboration
+Multi-user editing with instant updates across all connected clients using **Socket.io**.
 
-Auto-Save: Automatic persistence to MongoDB every 2 seconds to ensure no data loss.
+### Auto-Save
+Automatic persistence to **MongoDB** every 2 seconds to prevent data loss.
 
-Dynamic Document Routing: Unique document generation using UUIDs, allowing for private or shared editing sessions.
+### Dynamic Document Routing
+Unique document generation using **UUIDs**, enabling private or shared editing sessions.
 
-Rich Text Formatting: Full suite of tools including headers, font sizes, lists, and image support via Quill.js.
+### Rich Text Formatting
+Full suite of formatting tools powered by **Quill.js**, including:
+- Headers
+- Font sizes
+- Ordered and unordered lists
+- Image support
 
-Print Optimized: Custom CSS styles to ensure documents look perfect when printed or exported to PDF.
+### Standard Typography
 
-Loading States: Visual feedback while fetching document data from the database.
+Supports professional font sizing:
 
-🛠️ Tech Stack
+**Small**
+- 8pt  
+- 9pt  
+- 10pt  
 
-Frontend:
+**Standard**
+- 11pt  
+- 12pt  
+- 14pt  
 
-React.js: Functional components and Hooks (useEffect, useCallback, useState).
+**Large / Headings**
+- 18pt  
+- 24pt  
+- 30pt  
+- 36pt  
+- 48pt  
+- 60pt  
+- 72pt  
+- 96pt  
 
-Quill.js: The core rich-text editor engine.
+### Print Optimized
+Custom CSS ensures documents render cleanly when printed or exported to PDF.
 
-Socket.io-client: Real-time signaling for broadcasting changes.
+### Loading States
+Visual feedback while fetching document data from the database.
 
-React Router: Dynamic routing for document-specific URLs.
+## 🛠️ Tech Stack
 
-Backend:
+### Frontend
+- **React.js** — Functional components and Hooks (`useEffect`, `useCallback`, `useState`)
+- **Quill.js** — Rich-text editor engine
+- **Socket.io-client** — Real-time communication
+- **React Router** — Dynamic routing for document-specific URLs
 
-Node.js & Express: JavaScript runtime and server framework.
+### Backend
+- **Node.js** — JavaScript runtime
+- **Express.js** — Server framework
+- **Socket.io** — Real-time, bidirectional WebSocket communication
+- **MongoDB** — NoSQL database
+- **Mongoose** — ODM for schema modeling and database operations
 
-Socket.io: WebSocket implementation for real-time, bi-directional communication.
+## 📂 Project Structure
 
-MongoDB: NoSQL database for flexible document storage.
-
-Mongoose: ODM for modeling the document schema and handling DB operations.
-
-📂 Project Structure & Key Files
-
-The project is divided into a client-side React application and a server-side Node.js application:
-
+```
 COWRITE/
 ├── client/                # React Frontend Application
-│   ├── node_modules/      # (Local only) Frontend dependencies
 │   ├── public/            # Static assets
 │   │   ├── index.html     # Main HTML template
-│   │   ├── logo512.png    # App Icon (Custom Logo)
+│   │   ├── logo512.png    # App Icon
 │   │   └── manifest.json  # PWA configuration
-│   └── src/               # Application Source Code
-│       ├── App.js         # Routing and Main Logic
-│       ├── index.js       # React Entry Point
-│       ├── styles.css     # Global CSS and Editor Styles
-│       └── TextEditor.js  # Quill & Socket Implementation
+│   ├── src/               # Application Source Code
+│   │   ├── App.js         # Routing and Main Logic
+│   │   ├── index.js       # React Entry Point
+│   │   ├── styles.css     # Global CSS and Editor Styles
+│   │   └── TextEditor.js  # Quill & Socket Implementation
 │   ├── .gitignore         # Client-specific ignore rules
-│   ├── package-lock.json  # Dependency lock file
-│   ├── package.json       # Frontend dependencies and scripts
+│   ├── package.json       # Frontend dependencies
 │   └── README.md          # Project documentation
 ├── server/                # Node.js Backend Application
-│   ├── node_modules/      # (Local only) Backend dependencies
-│   ├── .gitignore         # Server-specific ignore rules
 │   ├── Document.js        # Mongoose Schema (MongoDB Model)
-│   ├── package-lock.json  # Dependency lock file
-│   ├── package.json       # Backend dependencies and scripts
-│   └── server.js          # Socket.io Logic & DB Connection
+│   ├── server.js          # Socket.io Logic & DB Connection
+│   ├── .gitignore         # Server-specific ignore rules
+│   └── package.json       # Backend dependencies
 └── LICENSE.gnumeric       # License information
+```
 
+## 📡 Socket Events
 
-📡 Socket Events
+| Event Name         | Description |
+|--------------------|------------|
+| `get-document`     | Client requests document data using `documentId` |
+| `load-document`    | Server sends initial document content to client |
+| `send-changes`     | Client broadcasts user edits (Quill Deltas) |
+| `receive-changes`  | Server syncs edits to all other users in the same room |
+| `save-document`    | Client periodically sends full document state for database persistence |
 
-The application uses the following events to synchronize state:
+## 📦 Installation & Setup
 
-get-document: Requests document data from the server.
+### 1️⃣ Setup the Server
 
-load-document: Sent by the server with the initial document content.
-
-send-changes: Sent by the client when the user makes an edit.
-
-receive-changes: Broadcasted by the server to all users in a specific room.
-
-save-document: Sent by the client periodically to persist data.
-
-📦 Installation & Setup
-
-Ensure you have Node.js and MongoDB installed and running locally.
-
-1. Clone the repository
-
-git clone [https://github.com/your-username/cowrite.git](https://github.com/your-username/cowrite.git)
-cd cowrite
-
-
-2. Setup the Server
-
+```bash
 cd server
 npm install
-# Ensure MongoDB is running on mongodb://127.0.0.1:27017
 npm start
+```
 
+### 2️⃣ Setup the Client
 
-The server starts on http://localhost:3001.
-
-3. Setup the Client
-
-cd ../client
+```bash
+cd client
 npm install
 npm start
+```
+
+## 📄 License
+
+This project is classified as open-source software and is disseminated under the stipulations of the MIT License.
 
 
-The client starts on http://localhost:3000.
-
-⚠️ Pre-Upload Checklist (for GitHub)
-
-If you are uploading via the GitHub website (drag-and-drop), please follow these steps to ensure a clean upload:
-
-Delete node_modules: Delete the node_modules folder inside both the client and server directories. These folders are too large and should be ignored.
-
-Include Package Files: Ensure package.json and package-lock.json are included so others can run npm install.
-
-Verify Gitignore: Ensure your .gitignore files are in place to prevent future accidental uploads of dependencies or secrets.
-
-📄 License
-
-This project is open-source and available under the MIT License.
+Developed by Sravan-09
